@@ -1,8 +1,11 @@
 # OpenShift Origin test lab installation
 
-## Prerequisites
+## Planning
 
 **DISCLAIMER**: this lab is intended for learning purposes only.
+
+A pool of virtual machines must be defined for this lab. The vms should be created
+following the specs found in the [Installation and Configuration](https://docs.openshift.org/latest/install_config/install/prerequisites.html#system-requirements) Guide.
 
 Origin Nodes:
 
