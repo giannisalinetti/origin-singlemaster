@@ -62,4 +62,15 @@ bash origin_install.sh
 
 ## Post Installation tasks
 
+After installation add users to the htpasswd Identity Provider in order to grant access from workstations.
+Keep in mind that the default cluster-admin user, **system:admin** cannot be used to login with password
+from remote hosts.
+
+To add a new user:
+
+```
+htpasswd -b /etc/origin/master/htpasswd admin openshift
+htpasswd -b /etc/origin/master/htpasswd developer developer
+```
+
 
