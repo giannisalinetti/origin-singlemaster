@@ -37,6 +37,21 @@ cd origin-siglemaster
 bash origin_preinstall.sh
 ```
 
+### Wildcard DNS 
+Define a wildcard DNS address. The default routing suffix is **ocplab.example.com** but it can be updated
+in the inventory/singlemaster file.
+
+The easiest way to define a wildcard address it to use **dnsmasq** package. If libvirt is the choosen
+hypervisor, a dnsmasq process is already installed to offer name resolution and dhcp to local vms.
+
+Update the default config file by adding the following entry:
+
+```
+address=/.ocplab.example.com/192.168.0.1
+```
+
+Where the IPv4 address is the address for the infra node scheduled to execute the router pod.
+
 ## OpenShift Origin installation
 
 To install the Origin cluster:
@@ -45,6 +60,6 @@ To install the Origin cluster:
 bash origin_install.sh
 ```
 
-# Post Installation tasks
+## Post Installation tasks
 
 
