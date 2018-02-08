@@ -40,7 +40,8 @@ cd origin-siglemaster
 bash origin_preinstall.sh
 ```
 
-### Wildcard DNS 
+### Wildcard DNS with dnsmasq
+
 Define a wildcard DNS address. The default routing suffix is **ocplab.example.com** but it can be updated
 in the inventory/singlemaster file.
 
@@ -54,6 +55,19 @@ address=/.ocplab.example.com/192.168.0.1
 ```
 
 Where the IPv4 address is the address for the infra node scheduled to execute the router pod.
+
+### Wildcard DNS with xip.io
+
+Alternatively, you can use the [xip.io](xip.io) service in order to provide a simple and fast
+wildcard DNS service.
+In order to use xip.io update the inventory file:
+
+```
+sed -i '/^openshift_master_default_subdomain/ s/ocplab.example.com/192.168.122.171.xip.io/' inventory/singlemaster
+```
+
+Where *192.168.122.171* is the IPv4 address of the infra node.
+
 
 ## OpenShift Origin installation
 
@@ -69,11 +83,9 @@ After installation add users to the htpasswd Identity Provider in order to grant
 Keep in mind that the default cluster-admin user, **system:admin** cannot be used to login with password
 from remote hosts.
 
-To add a new user:
+To add new users in OpenShift:
 
 ```
 htpasswd -b /etc/origin/master/htpasswd admin openshift
 htpasswd -b /etc/origin/master/htpasswd developer developer
 ```
-
-
