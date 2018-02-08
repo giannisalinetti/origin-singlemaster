@@ -1,0 +1,70 @@
+- name: "Host preparation playbook for OpenShift Enterprise 3.6 installation"
+  hosts: origin_nodes
+  vars_files:
+    - vars/origin_pre_vars.yaml
+  tasks:
+    - name: "Enable Origin repositories"
+      yum:
+        name: centos-release-openshift-origin36
+        state: latest
+
+    - name: "Base utilities are present"
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items: "{{ base_packages }}"
+
+    - name: "System is updated to the latest packages"
+      yum:
+        name: "*"
+        state: latest
+
+    # Used to fix connection delay issues on libvirt environments
+    - name: "SSHD UseDNS is disabled"
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#UseDNS yes'
+        line: 'UseDNS no'
+
+    - name: "Ensure Atomic OpenShift packages are present"
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - atomic-openshift-utils
+      ignore_errors: true
+      register: atomic_pkg_present
+
+    - name: "Ensure Docker package is present"
+      yum:
+        name: "{{ docker_pkg }}"
+        state: latest
+
+    # Use /etc/containers/registries.conf in the near future
+    # Logs max size must be tuned when deploying the application.
+    - name: "Update Docker options"
+      lineinfile:
+        path: /etc/sysconfig/docker
+        regexp: "^OPTIONS="
+        line: "OPTIONS='--selinux-enabled --insecure-registry 172.30.0.0/16 --log-opt max-size=1M --log-opt max-file=3'"
+    
+    # Docker storage is left to default loop device use when not in production environments
+    - name: "Template out docker-storage-setup config file"
+      template:
+        src: templates/docker-storage-setup.j2
+        dest: /etc/sysconfig/docker-storage-setup
+        owner: root
+        group: root
+        mode: 0644
+      when: production 
+
+    - name: "Execute docker-storage-setup script"
+      command: docker-storage-setup
+      when: production
+
+    - name: Start and enable {{ docker_svc }}
+      service:
+        name: "{{ docker_svc }}"
+        state: started
+        enabled: true
+      when: production

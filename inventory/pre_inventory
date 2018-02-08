@@ -1,0 +1,12 @@
+[origin_masters]
+origin-master.example.com
+
+[origin_infra]
+origin-node1.example.com
+
+[origin_nodes]
+origin-master.example.com
+origin-node1.example.com
+origin-node2.example.com
+
+[new_nodes]

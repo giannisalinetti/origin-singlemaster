@@ -1,0 +1,24 @@
+---
+setup_user: ansible
+production: false
+repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.6-rpms
+  - rhel-7-fast-datapath-rpms
+base_packages:
+  - wget
+  - git
+  - net-tools
+  - bind-utils
+  - iptables-services
+  - bridge-utils
+  - bash-completion
+  - kexec-tools
+  - sos
+  - psacct
+docker_pkg: docker-1.12.6
+docker_svc: docker
+
+# Set the  volume name
+docker_pv: /dev/sdc
