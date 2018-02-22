@@ -11,8 +11,8 @@ openshift_release=v3.6
 # Configure authentication
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 
-# Define blocked registries
-openshift_docker_blocked_registries=docker.io
+# Define blocked registries. Not needed in origin installation.
+# openshift_docker_blocked_registries=docker.io
 
 # Configure default subdomain
 openshift_master_default_subdomain=ocplab.example.com
