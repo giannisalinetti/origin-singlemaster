@@ -7,19 +7,30 @@ nfs
 [OSEv3:vars]
 ansible_ssh_user=root
 deployment_type=origin
-openshift_release=v3.6
+openshift_release=v3.7
 
 # Disable disk and memory checks
 openshift_disable_check=memory_availability,disk_availability
 
 # Configure authentication
+# Users must be defined on master node using htpasswd command
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
-
-# Define blocked registries. Not needed in origin installation.
-# openshift_docker_blocked_registries=docker.io
 
 # Configure default subdomain
 openshift_master_default_subdomain=ocplab.example.com
+
+# Configure default pod selectors
+openshift_router_selector='region=infra'
+openshift_registry_selector='region=infra'
+osm_default_node_selector='region=primary'
+
+# Configure Registry storage
+openshift_hosted_registry_storage_kind=nfs
+openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
+openshift_hosted_registry_storage_nfs_directory=/exports
+openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
+openshift_hosted_registry_storage_volume_name=registry
+openshift_hosted_registry_storage_volume_size=20Gi
 
 # Configure Cluster Metrics
 openshift_hosted_metrics_deploy=true
@@ -29,6 +40,9 @@ openshift_hosted_metrics_storage_nfs_directory=/exports
 openshift_hosted_metrics_storage_nfs_options='*(rw,root_squash)'
 openshift_hosted_metrics_storage_volume_name=metrics
 openshift_hosted_metrics_storage_volume_size=2Gi
+# openshift_metrics_cassandra_nodeselector={"region":"infra"}
+# openshift_metrics_hawkular_nodeselector={"region":"infra"}
+# openshift_metrics_heapster_nodeselector={"region":"infra"}
 
 # Configure cluster logging
 openshift_hosted_logging_deploy=true
@@ -38,6 +52,8 @@ openshift_hosted_logging_storage_nfs_directory=/exports
 openshift_hosted_logging_storage_nfs_options='*(rw,root_squash)'
 openshift_hosted_logging_storage_volume_name=logging
 openshift_hosted_logging_storage_volume_size=2Gi
+# openshift_logging_kibana_nodeselector={"region":"infra"}
+# openshift_logging_es_nodeselector={"region":"infra"}
 
 [masters]
 origin-master.example.com
