@@ -1,10 +1,10 @@
 #!/bin/bash
 
-ORIGIN_VERSION='v3.6'
+ORIGIN_VERSION='v3.7'
 INVENTORY='inventory/pre_inventory'
 
 # Install Origin repository
-yum install -y centos-release-openshift-origin36
+yum install -y centos-release-openshift-origin37
 if [ $? -ne 0 ]; then
     echo "Error installing Origin ${ORIGIN_VERSION} repository"
     exit 1

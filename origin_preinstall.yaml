@@ -5,7 +5,7 @@
   tasks:
     - name: "Enable Origin repositories"
       yum:
-        name: centos-release-openshift-origin36
+        name: centos-release-openshift-origin37
         state: latest
 
     - name: "Base utilities are present"
