@@ -1,6 +1,7 @@
 # OpenShift Origin advanced installation
 [OSEv3:children]
 masters
+etcd
 nodes
 nfs
 
@@ -56,6 +57,9 @@ openshift_hosted_logging_storage_volume_size=2Gi
 # openshift_logging_es_nodeselector={"region":"infra"}
 
 [masters]
+origin-master.example.com
+
+[etcd]
 origin-master.example.com
 
 [nfs]
