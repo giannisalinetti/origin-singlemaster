@@ -1,6 +1,6 @@
 ---
 setup_user: ansible
-production: false
+production: true
 repos:
   - rhel-7-server-rpms
   - rhel-7-server-extras-rpms
@@ -21,4 +21,4 @@ docker_pkg: docker-1.12.6
 docker_svc: docker
 
 # Set the  volume name
-docker_pv: /dev/sdc
+docker_pv: vdb

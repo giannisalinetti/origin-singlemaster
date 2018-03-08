@@ -1,4 +1,4 @@
-- name: "Host preparation playbook for OpenShift Enterprise 3.6 installation"
+- name: "Host preparation playbook for OpenShift Enterprise 3.7 installation"
   hosts: origin_nodes
   vars_files:
     - vars/origin_pre_vars.yaml
