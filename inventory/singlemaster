@@ -53,8 +53,52 @@ openshift_metrics_storage_volume_size=2Gi
 # openshift_metrics_hawkular_nodeselector={"region":"infra"}
 # openshift_metrics_heapster_nodeselector={"region":"infra"}
 
+# Deploy Prometheus
+openshift_hosted_prometheus_deploy=true
+
+# Prometheus storage config
+openshift_prometheus_storage_kind=nfs
+openshift_prometheus_storage_access_modes=['ReadWriteOnce']
+openshift_prometheus_storage_nfs_directory=/exports
+openshift_prometheus_storage_nfs_options='*(rw,root_squash)'
+openshift_prometheus_storage_volume_name=prometheus
+openshift_prometheus_storage_volume_size=10Gi
+openshift_prometheus_storage_labels={'storage': 'prometheus'}
+openshift_prometheus_storage_type='pvc'
+openshift_prometheus_storage_class=glusterfs-storage
+# For prometheus-alertmanager
+openshift_prometheus_alertmanager_storage_kind=nfs
+openshift_prometheus_alertmanager_storage_access_modes=['ReadWriteOnce']
+openshift_prometheus_alertmanager_storage_nfs_directory=/exports
+openshift_prometheus_alertmanager_storage_nfs_options='*(rw,root_squash)'
+openshift_prometheus_alertmanager_storage_volume_name=prometheus-alertmanager
+openshift_prometheus_alertmanager_storage_volume_size=10Gi
+openshift_prometheus_alertmanager_storage_labels={'storage': 'prometheus-alertmanager'}
+openshift_prometheus_alertmanager_storage_type='pvc'
+openshift_prometheus_alertmanager_storage_class=glusterfs-storage
+# For prometheus-alertbuffer
+openshift_prometheus_alertbuffer_storage_kind=nfs
+openshift_prometheus_alertbuffer_storage_access_modes=['ReadWriteOnce']
+openshift_prometheus_alertbuffer_storage_nfs_directory=/exports
+openshift_prometheus_alertbuffer_storage_nfs_options='*(rw,root_squash)'
+openshift_prometheus_alertbuffer_storage_volume_name=prometheus-alertbuffer
+openshift_prometheus_alertbuffer_storage_volume_size=10Gi
+openshift_prometheus_alertbuffer_storage_labels={'storage': 'prometheus-alertbuffer'}
+openshift_prometheus_alertbuffer_storage_type='pvc'
+openshift_prometheus_alertbuffer_storage_class=glusterfs-storage
+
+# Grafana Configuration
+#grafana_namespace=grafana
+#grafana_user=grafana
+#grafana_password=grafana
+#grafana_datasource_name="example"
+#grafana_prometheus_namespace="openshift-metrics"
+#grafana_prometheus_sa=prometheus
+#grafana_node_exporter=false
+#grafana_graph_granularity="2m"
+
 # Configure cluster logging
-openshift_logging_install_logging=true
+openshift_logging_install_logging=false
 openshift_logging_storage_kind=nfs
 openshift_logging_storage_access_modes=['ReadWriteOnce']
 openshift_logging_storage_nfs_directory=/exports
@@ -63,37 +107,6 @@ openshift_logging_storage_volume_name=logging
 openshift_logging_storage_volume_size=2Gi
 # openshift_logging_kibana_nodeselector={"region":"infra"}
 # openshift_logging_es_nodeselector={"region":"infra"}
-
-# Prometheus storage config
-#openshift_prometheus_storage_kind=nfs
-#openshift_prometheus_storage_access_modes=['ReadWriteOnce']
-#openshift_prometheus_storage_nfs_directory=/exports
-#openshift_prometheus_storage_nfs_options='*(rw,root_squash)'
-#openshift_prometheus_storage_volume_name=prometheus
-#openshift_prometheus_storage_volume_size=10Gi
-#openshift_prometheus_storage_labels={'storage': 'prometheus'}
-#openshift_prometheus_storage_type='pvc'
-#openshift_prometheus_storage_class=glusterfs-storage
-# For prometheus-alertmanager
-#openshift_prometheus_alertmanager_storage_kind=nfs
-#openshift_prometheus_alertmanager_storage_access_modes=['ReadWriteOnce']
-#openshift_prometheus_alertmanager_storage_nfs_directory=/exports
-#openshift_prometheus_alertmanager_storage_nfs_options='*(rw,root_squash)'
-#openshift_prometheus_alertmanager_storage_volume_name=prometheus-alertmanager
-#openshift_prometheus_alertmanager_storage_volume_size=10Gi
-#openshift_prometheus_alertmanager_storage_labels={'storage': 'prometheus-alertmanager'}
-#openshift_prometheus_alertmanager_storage_type='pvc'
-#openshift_prometheus_alertmanager_storage_class=glusterfs-storage
-# For prometheus-alertbuffer
-#openshift_prometheus_alertbuffer_storage_kind=nfs
-#openshift_prometheus_alertbuffer_storage_access_modes=['ReadWriteOnce']
-#openshift_prometheus_alertbuffer_storage_nfs_directory=/exports
-#openshift_prometheus_alertbuffer_storage_nfs_options='*(rw,root_squash)'
-#openshift_prometheus_alertbuffer_storage_volume_name=prometheus-alertbuffer
-#openshift_prometheus_alertbuffer_storage_volume_size=10Gi
-#openshift_prometheus_alertbuffer_storage_labels={'storage': 'prometheus-alertbuffer'}
-#openshift_prometheus_alertbuffer_storage_type='pvc'
-#openshift_prometheus_alertbuffer_storage_class=glusterfs-storage
 
 [masters]
 origin-master.example.com
