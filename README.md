@@ -28,11 +28,17 @@ resources are limited.
 git clone https://github.com/giannisalinetti/origin-singlemaster.git
 ```
 
+Configure the bastion host
+
+```
+$ sudo bash configure_bastion.sh
+```
+
 (Optional)
 Create and deploy ssh keys on hosts. Custom, pre-owned keys can be used.
 
 ```
-bash deploy_keys.sh
+$ bash deploy_keys.sh
 ```
 
 Run the preinstall script from the cloned repo (it will take up to 10-15 minutes due to system updates).
