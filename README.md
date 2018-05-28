@@ -4,18 +4,20 @@
 
 **DISCLAIMER**: this lab is intended for learning purposes only.
 
+**This lab is based on Openshift Origin 3.9.**
+
 A pool of virtual machines must be defined for this lab. The vms should be created
 following the specs found in the [Installation and Configuration](https://docs.openshift.org/latest/install_config/install/prerequisites.html#system-requirements) Guide.
 
 Origin Nodes:
 
-- origin-master.example.com (CentOS 7.4)
-- origin-node1.example.com (CentOS 7.4)
-- origin-node2.example.com (CentOS 7.4)
+- origin-master.example.com (CentOS 7.5)
+- origin-node1.example.com (CentOS 7.5)
+- origin-node2.example.com (CentOS 7.5)
 
 Bastion Host (Optional):
 
-- origin-ctrl.example.com (CentOS 7.4)
+- origin-ctrl.example.com (CentOS 7.5)
 
 ## Prerequisites
 

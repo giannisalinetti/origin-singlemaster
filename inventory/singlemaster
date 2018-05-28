@@ -8,9 +8,7 @@ nfs
 [OSEv3:vars]
 ansible_ssh_user=root
 deployment_type=origin
-openshift_release=v3.7
-# Version v3.9
-#openshift_release=v3.9
+openshift_release=v3.9
 
 # Disable disk and memory checks
 openshift_disable_check=memory_availability,disk_availability,docker_storage,docker_storage_driver,docker_image_availability,package_version,package_availability,package_update

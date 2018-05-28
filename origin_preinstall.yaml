@@ -1,12 +1,21 @@
-- name: "Host preparation playbook for OpenShift Enterprise 3.7 installation"
+- name: "Host preparation playbook for OpenShift 3.9 installation"
   hosts: origin_nodes
   vars_files:
     - vars/origin_pre_vars.yaml
   tasks:
     - name: "Enable Origin repositories"
       yum:
-        name: centos-release-openshift-origin37
+        name: "{{ item }}"
         state: latest
+      with_items: "{{ repos_origin }}"
+      when: community == True
+
+    - name: "Enable Enterprise repositories"
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items: "{{ repos_enterprise }}"
+      when: community == False
 
     - name: "Base utilities are present"
       yum:

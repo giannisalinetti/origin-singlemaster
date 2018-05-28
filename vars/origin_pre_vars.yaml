@@ -1,11 +1,20 @@
 ---
 setup_user: ansible
 production: true
-repos:
+community: true
+
+# This set of repos can be used to switch to an enterprise installation
+repos_enterprise:
   - rhel-7-server-rpms
   - rhel-7-server-extras-rpms
-  - rhel-7-server-ose-3.6-rpms
+  - rhel-7-server-ose-3.9-rpms
   - rhel-7-fast-datapath-rpms
+
+# OpenShift SIG released repo
+repos_origin:
+  - centos-release-openshift-origin39
+
+# Base packages needed on nodes
 base_packages:
   - wget
   - git
@@ -17,8 +26,10 @@ base_packages:
   - kexec-tools
   - sos
   - psacct
-docker_pkg: docker-1.12.6
+
+# Docker 1.13.1 is needed in OpenShift 3.9
+docker_pkg: docker-1.13.1
 docker_svc: docker
 
-# Set the  volume name
+# Set the  volume name. Change it if necessary to adapt to the correct block device name
 docker_pv: vdb
