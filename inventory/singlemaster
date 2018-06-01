@@ -16,6 +16,7 @@ openshift_disable_check=memory_availability,disk_availability,docker_storage,doc
 # Configure authentication
 # Users must be defined on master node using htpasswd command
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+openshift_master_htpasswd_users={'admin': '$apr1$vpZQCxC3$DiD.xc8KG0lJVrG2prR0B1', 'developer': '$apr1$rgYGtPou$Abrt/PMMCJFw/wfd5JUam/'}
 
 # Configure default subdomain
 openshift_master_default_subdomain=192.168.122.172.xip.io
@@ -54,7 +55,7 @@ openshift_metrics_storage_volume_size=2Gi
 # openshift_metrics_heapster_nodeselector={"region":"infra"}
 
 # Deploy Prometheus
-openshift_hosted_prometheus_deploy=true
+openshift_hosted_prometheus_deploy=false
 
 # Prometheus storage config
 openshift_prometheus_storage_kind=nfs

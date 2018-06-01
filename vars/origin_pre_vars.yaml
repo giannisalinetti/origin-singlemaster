@@ -12,6 +12,7 @@ repos_enterprise:
 
 # OpenShift SIG released repo
 repos_origin:
+  - epel-release
   - centos-release-openshift-origin39
 
 # Base packages needed on nodes
