@@ -1,11 +1,16 @@
 #!/bin/bash
 
+if [ $# -eq 0 ]; then
+    printf "Missing parameter.\nUsage: $(basename $0) community|atomic\n"
+    exit 1
+fi
+
 REPOS="epel-release centos-release-openshift-origin39"
-EXTRA_PKG="git vim-enhanced bind-utils wget bash-completion"
+EXTRA_PKG="git vim-enhanced bind-utils wget bash-completion pyOpenSSL"
 
 # This script must be run as root
 if [ $USER != root ]; then
-    echo "Plese run this script as root."
+    printf "Plese run this script as root.\n"
     exit 1
 fi
 
@@ -35,10 +40,21 @@ for pkg in $EXTRA_PKG; do
 done
 
 # Install atomic-openshift-utils on bastion host
-yum install -y atomic-openshift-utils
-if [ $? -ne 0 ]; then
-    echo "Error installing package atomic-openshift-utils"
-    exit 1
+if [ $1 == "atomic" ]; then
+    yum install -y atomic-openshift-utils
+    if [ $? -ne 0 ]; then
+        echo "Error installing package atomic-openshift-utils"
+        exit 1
+    fi
+fi
+
+# Clone the openshift-ansible repository
+if [ $1 == "community" ]; then
+    cd ~ && git clone https://github.com/openshift/openshift-ansible && git checkout release-3.9
+    if [ $? -ne 0 ]; then
+        echo "Error cloning openshift-ansible repository"
+        exit 1
+    fi
 fi
 
 exit 0
